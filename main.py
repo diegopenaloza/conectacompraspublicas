@@ -80,7 +80,7 @@ app = FastAPI()
 
 # Monta la carpeta build del proyecto React como archivos estáticos
 # app.mount("/static", StaticFiles(directory="C:/Users/Diego/proyectos/aihack/conexion/build"), name="static")
-app.mount("/static", StaticFiles(directory="C:/Users/Diego/proyectos/aihack/conexion/build/static"), name="static")
+app.mount("/static", StaticFiles(directory="build/static"), name="static")
 
 
 # +
@@ -159,7 +159,7 @@ def plotnodes(df):
 
 @app.get("/home")
 async def get_main():
-    return FileResponse("C:/Users/Diego/proyectos/aihack/conexion/build/index.html")
+    return FileResponse("build/index.html")
 
 
 @app.get("/")
