@@ -1,0 +1,5 @@
+neo4j
+pyvis
+pandas
+fastapi
+graphdatascience
