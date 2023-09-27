@@ -3,3 +3,4 @@ pyvis
 pandas
 fastapi
 graphdatascience
+uvicorn
