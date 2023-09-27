@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafo en 3D con Three.js</title>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Crear nodos
+        var nodes = [];
+        for (var i = 0; i < 5; i++) {
+            var geometry = new THREE.SphereGeometry(0.2, 32, 32);
+            var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            var node = new THREE.Mesh(geometry, material);
+            node.position.x = Math.random() * 4 - 2;
+            node.position.y = Math.random() * 4 - 2;
+            node.position.z = Math.random() * 4 - 2;
+            nodes.push(node);
+            scene.add(node);
+        }
+
+        // Crear conexiones
+        var edges = [];
+        for (var i = 0; i < nodes.length; i++) {
+            for (var j = i + 1; j < nodes.length; j++) {
+                var material = new THREE.LineBasicMaterial({ color: 0xffffff });
+                var geometry = new THREE.BufferGeometry().setFromPoints([nodes[i].position, nodes[j].position]);
+                var edge = new THREE.Line(geometry, material);
+                scene.add(edge);
+            }
+        }
+
+        var animate = function () {
+            nodes.forEach(function (node) {
+                node.rotation.x += 0.01;
+                node.rotation.y += 0.01;
+            });
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        };
+
+        animate();
+    </script>
+</body>
+</html>
